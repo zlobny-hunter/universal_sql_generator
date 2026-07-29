@@ -1,0 +1,11 @@
+-- Сгенерировано автоматически: {{ generated_at }}
+{% for row in rows %}
+INSERT INTO users (email, age, registration_date)
+VALUES ('{{ row['email'] }}', {{ row['age'] if row['age'] else 'NULL' }}, '{{ row['registration_date'] }}');
+{% if (loop.index0 + 1) % 500 == 0 %}
+COMMIT;
+{% endif %}
+{% endfor %}
+{% if rows|length % 500 != 0 %}
+COMMIT;
+{% endif %}
