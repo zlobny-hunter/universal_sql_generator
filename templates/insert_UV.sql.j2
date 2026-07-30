@@ -1,0 +1,12 @@
+-- Сгенерировано автоматически: {{ generated_at }}
+{% for row in rows %}
+insert into EVQ_PATIENT (ID, EVENT_TYPE, PROCESSED, IDEMIAS, PRIORITY_, PLAN_DATE)
+     values (nextval('evq_seq'), 940, 0, '{{ row['idemias'] }}', 100000, to_char(current_date, 'YYYYMMDD'));
+{% if (loop.index0 + 1) % 500 == 0 %}
+COMMIT;
+{% endif %}
+{% endfor %}
+{% if rows|length % 500 != 0 %}
+COMMIT;
+{% endif %}
+

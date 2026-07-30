@@ -25,13 +25,24 @@
         <form action="/generate/" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="module_id" class="form-label">Выберите модуль генерации:</label>
-                <select class="form-select" id="module_id" name="module_id" required>
+                <!-- Добавлен обработчик события onchange -->
+                <select class="form-select" id="module_id" name="module_id" required onchange="showModuleInfo(this)">
                     <option value="" selected disabled>-- Выберите модуль --</option>
                     {% for mod in modules %}
-                        <option value="{{ mod.id }}">{{ mod.name }} — {{ mod.description }}</option>
+                        <!-- Добавлен атрибут data-fields с сериализованным списком полей -->
+                        <option value="{{ mod.id }}" data-fields='{{ mod.fields | tojson }}'>
+                            {{ mod.name }} — {{ mod.description }}
+                        </option>
                     {% endfor %}
                 </select>
             </div>
+
+            <!-- Блок справочного отображения структуры CSV -->
+            <div id="csv-structure-info" class="alert alert-secondary d-none mb-3">
+                <strong>Требуемая структура CSV-файла (разделитель — точка с запятой «;», кодировка UTF-8):</strong>
+                <ul id="fields-list" class="mb-0 mt-2"></ul>
+            </div>
+
             <div class="mb-3">
                 <label for="file" class="form-label">Загрузить CSV файл с данными:</label>
                 <input class="form-control" type="file" id="file" name="file" accept=".csv" required>
@@ -40,5 +51,45 @@
         </form>
     </div>
 </div>
+<script>
+function showModuleInfo(selectElement) {
+    const selectedOption = selectElement.options[selectElement.selectedIndex];
+    const fieldsDataAttr = selectedOption.getAttribute('data-fields');
+
+    const infoBox = document.getElementById('csv-structure-info');
+    const fieldsList = document.getElementById('fields-list');
+
+    if (!fieldsDataAttr) {
+        infoBox.classList.add('d-none');
+        return;
+    }
+
+    const fields = JSON.parse(fieldsDataAttr);
+    fieldsList.innerHTML = '';
+
+    // Формируем строчку с порядком колонок в виде заголовка CSV (например: col1;col2;col3)
+    let columnNames = fields.map(f => f.name).join(';');
+
+    let headerLi = document.createElement('li');
+    headerLi.innerHTML = `<strong>Пример строки заголовков:</strong> <code class="text-dark bg-light px-2 py-1 border rounded">${columnNames}</code>`;
+    fieldsList.appendChild(headerLi);
+
+    let detailsLi = document.createElement('li');
+    detailsLi.innerHTML = `<strong>Описание полей:</strong>`;
+    let subUl = document.createElement('ul');
+
+    fields.forEach(f => {
+        let reqText = f.required ? 'обязательное' : 'необязательное';
+        let subLi = document.createElement('li');
+        subLi.textContent = `${f.name} (тип: ${f.type}, ${reqText})${f.description ? ' — ' + f.description : ''}`;
+        subUl.appendChild(subLi);
+    });
+
+    detailsLi.appendChild(subUl);
+    fieldsList.appendChild(detailsLi);
+
+    infoBox.classList.remove('d-none');
+}
+</script>
 </body>
 </html>

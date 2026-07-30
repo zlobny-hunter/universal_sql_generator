@@ -21,3 +21,163 @@ modules:
         format: "%Y-%m-%d"
         required: true
         description: "Дата регистрации"
+
+  - id: "insert_UV"
+    name: "Скрипт для простановки УВ"
+    description: "Генерация INSERT скриптов для добавления новых УВ"
+    template: "insert_UV.sql.j2"
+    output_filename: "Добавление новых УВ_{timestamp}.sql"
+    fields:
+      - name: "idemias"
+        type: "biginteger"
+        required: true
+        description: "ID пациента EMIAS"
+
+  - id: "insert_RUV"
+    name: "Скрипт для простановки РУВ"
+    description: "Генерация INSERT скриптов для добавления новых РУВ"
+    template: "insert_RUV.sql.j2"
+    output_filename: "Добавление новых РУВ_{timestamp}.sql"
+    fields:
+      - name: "idemias"
+        type: "biginteger"
+        required: true
+        description: "ID пациента EMIAS"
+
+  - id: "delete_UV"
+    name: "Скрипт для удаления УВ"
+    description: "Генерация UPDATE скриптов для удаления УВ"
+    template: "delete_UV.sql.j2"
+    output_filename: "Удаление УВ_{timestamp}.sql"
+    fields:
+      - name: "idemias"
+        type: "biginteger"
+        required: true
+        description: "ID пациента EMIAS"
+
+  - id: "delete_RUV"
+    name: "Скрипт для удаления РУВ"
+    description: "Генерация UPDATE скриптов для удаления РУВ"
+    template: "delete_RUV.sql.j2"
+    output_filename: "Удаление РУВ_{timestamp}.sql"
+    fields:
+      - name: "idemias"
+        type: "biginteger"
+        required: true
+        description: "ID пациента EMIAS"
+
+  - id: "apteka_filial"
+    name: "Филиал аптеки"
+    description: "Генерация INSERT скриптов для добавления новых филиалов аптек"
+    template: "apteka_filial.sql.j2"
+    output_filename: "apteka_filial_{timestamp}.sql"
+    fields:
+      - name: "SHORT_NAME"
+        type: "string"
+        required: true
+        description: "Краткое наименование"
+      - name: "NAME_"
+        type: "string"
+        required: true
+        description: "Полное наименование"
+      - name: "CHIEF"
+        type: "string"
+        required: true
+        description: "ФИО директора"
+      - name: "ADDRESS"
+        type: "string"
+        required: true
+        description: "Адрес"
+      - name: "FIAS"
+        type: "string"
+        required: true
+        description: "ФИАС"
+      - name: "PHONE"
+        type: "string"
+        required: true
+        description: "Телефон"
+      - name: "SCHEDULE"
+        type: "string"
+        required: true
+        description: "Расписание"
+      - name: "IDENT"
+        type: "string"
+        required: true
+        description: "Код"
+      - name: "DISTRICT_OMKTE"
+        type: "string"
+        required: true
+        description: "DISTRICT_OMKTE"
+      - name: "INN"
+        type: "string"
+        required: true
+        description: "INN"
+      - name: "OKPO"
+        type: "string"
+        required: true
+        description: "OKPO"
+      - name: "LATITUDE"
+        type: "string"
+        required: true
+        description: "LATITUDE"
+      - name: "LONGITUDE"
+        type: "string"
+        required: true
+        description: "LONGITUDE"
+      - name: "STATION_ID"
+        type: "string"
+        required: true
+        description: "STATION_ID"
+      - name: "WEBSITE"
+        type: "string"
+        required: true
+        description: "WEBSITE"
+      - name: "IS_24H"
+        type: "string"
+        required: true
+        description: "IS_24H"
+      - name: "IS_TRADING"
+        type: "string"
+        required: true
+        description: "IS_TRADING"
+      - name: "IS_ACTUAL"
+        type: "string"
+        required: true
+        description: "IS_ACTUAL"
+      - name: "TYPE_ID"
+        type: "string"
+        required: true
+        description: "TYPE_ID"
+      - name: "IS_COMMERCIAL"
+        type: "string"
+        required: true
+        description: "IS_COMMERCIAL"
+      - name: "contact_person"
+        type: "string"
+        required: true
+        description: "contact_person"
+      - name: "contact_mobile"
+        type: "string"
+        required: true
+        description: "contact_mobile"
+
+      - name: "contact_email"
+        type: "string"
+        required: true
+        description: "contact_email"
+      - name: "ogrn"
+        type: "string"
+        required: true
+        regex: "[0-9]"
+        description: "ogrn"
+      - name: "IS_NOSOLOGY"
+        type: "string"
+        required: true
+        description: "IS_NOSOLOGY"
+      - name: "PARENT_IDENT"
+        type: "string"
+        required: true
+        description: "PARENT_IDENT"
+
+
+
