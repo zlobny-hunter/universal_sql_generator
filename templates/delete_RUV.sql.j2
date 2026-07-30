@@ -1,0 +1,14 @@
+-- Сгенерировано автоматически: {{ generated_at }}
+{% for row in rows %}
+update EMIAS_LLO.PATIENT_BENEFIT set STATUS=6, LAST_UPDATE = CURRENT_DATE
+WHERE patient_id in (
+    select id from EMIAS_LLO.patient where EXTERNAL_UID ='{{ row['idemias'] }}'
+) and BENEFIT_ID=1941;
+{% if (loop.index0 + 1) % 500 == 0 %}
+COMMIT;
+{% endif %}
+{% endfor %}
+{% if rows|length % 500 != 0 %}
+COMMIT;
+{% endif %}
+
