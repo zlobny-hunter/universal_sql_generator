@@ -93,9 +93,10 @@ modules:
         required: true
         description: "ФИАС"
       - name: "PHONE"
-        type: "string"
+        type: "int"
         required: true
-        description: "Телефон"
+        regex: '[0-9]{10,15}$'
+        description: "Телефон. Только цифры, плюс будет подставлен автоматически"
       - name: "SCHEDULE"
         type: "string"
         required: true
@@ -105,79 +106,93 @@ modules:
         required: true
         description: "Код"
       - name: "DISTRICT_OMKTE"
-        type: "string"
+        type: "int"
         required: true
-        description: "DISTRICT_OMKTE"
+        regex: '[0-9]{3}$'
+        description: "Код округа. Три цифры, ноль впереди будет подставлен автоматически"
       - name: "INN"
-        type: "string"
+        type: "int"
         required: true
-        description: "INN"
+        regex: '^[0-9]{10}$|^[0-9]{12}$'
+        description: "ИНН"
       - name: "OKPO"
-        type: "string"
+        type: "int"
         required: true
-        description: "OKPO"
+        regex: '^[0-9]{8}$|^[0-9]{10}$'
+        description: "ОКПО"
       - name: "LATITUDE"
         type: "string"
         required: true
-        description: "LATITUDE"
+        regex: '^-?[0-9]+\.[0-9]+$'
+        description: "Широта"
       - name: "LONGITUDE"
         type: "string"
         required: true
-        description: "LONGITUDE"
+        regex: '^-?[0-9]+\.[0-9]+$'
+        description: "Долгота"
       - name: "STATION_ID"
-        type: "string"
+        type: "int"
         required: true
-        description: "STATION_ID"
+        description: "ИД Станции метро"
       - name: "WEBSITE"
         type: "string"
         required: true
-        description: "WEBSITE"
+        description: "Веб сайт"
       - name: "IS_24H"
-        type: "string"
+        type: "int"
         required: true
-        description: "IS_24H"
+        description: "Признак круглосуточного режима"
       - name: "IS_TRADING"
-        type: "string"
+        type: "int"
         required: true
-        description: "IS_TRADING"
+        description: "Осуществление отпуска ЛП"
       - name: "IS_ACTUAL"
-        type: "string"
+        type: "int"
         required: true
-        description: "IS_ACTUAL"
+        description: "Актуальность"
       - name: "TYPE_ID"
-        type: "string"
+        type: "int"
         required: true
-        description: "TYPE_ID"
+        description: "Тип аптеки"
       - name: "IS_COMMERCIAL"
-        type: "string"
+        type: "int"
         required: true
-        description: "IS_COMMERCIAL"
+        description: "Признак обслуживания ЭР за полную стоимость"
       - name: "contact_person"
         type: "string"
         required: true
-        description: "contact_person"
+        description: "ФИО ответственного"
       - name: "contact_mobile"
         type: "string"
         required: true
-        description: "contact_mobile"
-
+        regex: '[0-9]{10,15}$'
+        description: "Телефон ответственного. Только цифры, плюс будет подставлен автоматически"
       - name: "contact_email"
         type: "string"
         required: true
-        description: "contact_email"
+        description: "Эл. почта ответственного"
       - name: "ogrn"
-        type: "string"
+        type: "bigint"
         required: true
-        regex: "[0-9]"
-        description: "ogrn"
+        regex: '^\+[0-9]+$'
+        description: "ОГРН "
       - name: "IS_NOSOLOGY"
-        type: "string"
+        type: "int"
         required: true
-        description: "IS_NOSOLOGY"
+        description: "Нозология"
+      - name: "UNOM"
+        type: "int"
+        required: true
+        description: "UNOM"
+      - name: "IS_BENEFIT"
+        type: "int"
+        required: true
+        description: "IS_BENEFIT"
       - name: "PARENT_IDENT"
         type: "string"
         required: true
-        description: "PARENT_IDENT"
+        description: "Идент родителя"
+
 
 
 

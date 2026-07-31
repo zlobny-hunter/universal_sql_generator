@@ -20,7 +20,8 @@ class BaseSqlModule(ABC):
         row_lower = {k.strip().lower(): v for k, v in row.items()}
 
         for field_name_lower, field_rule in self.fields_config.items():
-            value = row_lower.get(field_name_lower, "").strip()
+            raw_value = row_lower.get(field_name_lower)
+            value = str(raw_value).strip() if raw_value is not None else ""
 
             # Проверка обязательных полей
             if field_rule.get("required", False) and not value:
@@ -35,7 +36,7 @@ class BaseSqlModule(ABC):
             # Проверка типа, если поле не пустое
             ftype = field_rule.get("type")
             try:
-                if ftype == "integer":
+                if ftype in ("int", "integer", "bigint", "biginteger"):
                     val_int = int(value)
                     if "min" in field_rule and val_int < field_rule["min"]:
                         errors.append(f"Строка {row_idx}: Поле '{field_name_lower}' меньше минимума ({field_rule['min']}).")
