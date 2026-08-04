@@ -158,20 +158,20 @@ modules:
         type: "int"
         required: true
         description: "Признак обслуживания ЭР за полную стоимость"
-      - name: "contact_person"
+      - name: "CONTACT_PERSON"
         type: "string"
         required: true
         description: "ФИО ответственного"
-      - name: "contact_mobile"
+      - name: "CONTACT_MOBILE"
         type: "string"
         required: true
         regex: '[0-9]{10,15}$'
         description: "Телефон ответственного. Только цифры, плюс будет подставлен автоматически"
-      - name: "contact_email"
+      - name: "CONTACT_EMAIL"
         type: "string"
         required: true
         description: "Эл. почта ответственного"
-      - name: "ogrn"
+      - name: "OGRN"
         type: "bigint"
         required: true
         regex: '^\+[0-9]+$'

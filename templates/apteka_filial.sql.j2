@@ -2,18 +2,18 @@
 {% for row in rows %}
 INSERT INTO LLO.pharmacy (ID, SHORT_NAME, NAME_, CHIEF, ADDRESS, FIAS, PHONE, SCHEDULE, IDENT, DISTRICT_OMKTE,
                           INN, OKPO, LATITUDE, LONGITUDE, WEBSITE, IS_24H, IS_TRADING, IS_ACTUAL, TYPE_ID,
-                          IS_COMMERCIAL, contact_person, contact_mobile, contact_email, ogrn, IS_NOSOLOGY,
+                          IS_COMMERCIAL, CONTACT_PERSON, CONTACT_MOBILE, CONTACT_EMAIL, OGRN, IS_NOSOLOGY,
                            UNOM, IS_BENEFIT, PARENT_ID)
 VALUES (nextval('LLO.main_seq'), '{{ row['SHORT_NAME'] }}', '{{ row['NAME_'] }}', '{{ row['CHIEF'] }}',
         '{{ row['ADDRESS'] }}', '{{ row['FIAS'] }}', '+' ||'{{ row['PHONE'] }}', '{{ row['SCHEDULE'] }}',
         '{{ row['IDENT'] }}', '0' || '{{ row['DISTRICT_OMKTE'] }}', '{{ row['INN'] }}', '{{ row['OKPO'] }}',
         '{{ row['LATITUDE'] }}', '{{ row['LONGITUDE'] }}', '{{ row['WEBSITE'] }}', {{ row['IS_24H'] }},
         {{ row['IS_TRADING'] }}, {{ row['IS_ACTUAL'] }}, {{ row['TYPE_ID'] }}, {{ row['IS_COMMERCIAL'] }},
-        '{{ row['contact_person'] }}', '+'|| '{{ row['contact_mobile'] }}', '{{ row['contact_email'] }}',
-        '{{ row['ogrn'] }}', {{ row['IS_NOSOLOGY'] }}, {{ row['UNOM'] }}, {{ row['IS_BENEFIT'] }},
+        '{{ row['CONTACT_PERSON'] }}', '+'|| '{{ row['CONTACT_MOBILE'] }}', '{{ row['CONTACT_EMAIL'] }}',
+        '{{ row['OGRN'] }}', {{ row['IS_NOSOLOGY'] }}, {{ row['UNOM'] }}, {{ row['IS_BENEFIT'] }},
         (select max(ph.ID) from LLO.PHARMACY ph where ph.IDENT = '{{ row['PARENT_IDENT'] }}' ) );
 INSERT INTO LLO.PHARMACY_METRO ( ID, STATION_ID, PHARMACY_ID)
-VALUES (nextval('LLO.pharmacy_metro_seq'),'{{ row['STATION_ID'] }}',
+VALUES (nextval('LLO.PHARMACY_METRO_SEQ'),'{{ row['STATION_ID'] }}',
         (select max(ph.ID) from LLO.PHARMACY ph where ph.IDENT = '{{ row['IDENT'] }}'));
 
 {% if (loop.index0 + 1) % 500 == 0 %}
