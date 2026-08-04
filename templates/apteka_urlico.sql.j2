@@ -1,0 +1,21 @@
+-- Сгенерировано автоматически: {{ generated_at }}
+{% for row in rows %}
+INSERT INTO LLO.pharmacy (ID, SHORT_NAME, NAME_, CHIEF, ADDRESS, FIAS, PHONE, SCHEDULE, IDENT, DISTRICT_OMKTE,
+                          LATITUDE, LONGITUDE, IS_24H, IS_TRADING, IS_ACTUAL, TYPE_ID, CONTACT_PERSON, CONTACT_MOBILE,
+                          CONTACT_EMAIL, OGRN, IS_NOSOLOGY, INN, OKPO, TRADE_DISTRICT, UNOM, COMMENT_)
+VALUES (nextval('LLO.main_seq'), '{{ row['SHORT_NAME'] }}', '{{ row['NAME_'] }}', '{{ row['CHIEF'] }}',
+        '{{ row['ADDRESS'] }}', '{{ row['FIAS'] }}', '+' ||'{{ row['PHONE'] }}', '{{ row['SCHEDULE'] }}',
+        '{{ row['IDENT'] }}', '0' || '{{ row['DISTRICT_OMKTE'] }}', {{ row['LATITUDE'] }}, {{ row['LONGITUDE'] }},
+        {{ row['IS_24H'] }}, {{ row['IS_TRADING'] }}, {{ row['IS_ACTUAL'] }}, {{ row['TYPE_ID'] }},
+        '{{ row['CONTACT_PERSON'] }}', '+'|| '{{ row['CONTACT_MOBILE'] }}', '{{ row['CONTACT_EMAIL'] }}', {{ row['OGRN'] }},
+        {{ row['IS_NOSOLOGY'] }}, {{ row['INN'] }}, {{ row['OKPO'] }},
+        '{{ row['TRADE_DISTRICT'] }}', {{ row['UNOM'] }}, '{{ row['COMMENT_'] }}' );
+{% if (loop.index0 + 1) % 500 == 0 %}
+COMMIT;
+{% endif %}
+{% endfor %}
+{% if rows|length % 500 != 0 %}
+COMMIT;
+{% endif %}
+
+

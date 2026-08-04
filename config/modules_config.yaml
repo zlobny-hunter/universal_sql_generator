@@ -193,6 +193,125 @@ modules:
         required: true
         description: "Идент родителя"
 
+  - id: "apteka_urlico"
+    name: "Аптека-юридическое лицо"
+    description: "Генерация INSERT скриптов для добавления новых юрлиц аптек"
+    template: "apteka_urlico.sql.j2"
+    output_filename: "apteka_urlico_{timestamp}.sql"
+    fields:
+      - name: "SHORT_NAME"
+        type: "string"
+        required: true
+        description: "Краткое наименование"
+      - name: "NAME_"
+        type: "string"
+        required: true
+        description: "Полное наименование"
+      - name: "CHIEF"
+        type: "string"
+        required: true
+        description: "ФИО директора"
+      - name: "ADDRESS"
+        type: "string"
+        required: true
+        description: "Адрес"
+      - name: "FIAS"
+        type: "string"
+        required: true
+        description: "ФИАС"
+      - name: "PHONE"
+        type: "int"
+        required: true
+        regex: '[0-9]{10,15}$'
+        description: "Телефон. Только цифры, плюс будет подставлен автоматически"
+      - name: "SCHEDULE"
+        type: "string"
+        required: true
+        description: "Расписание"
+      - name: "IDENT"
+        type: "string"
+        required: true
+        description: "Код"
+      - name: "DISTRICT_OMKTE"
+        type: "int"
+        required: true
+        regex: '[0-9]{3}$'
+        description: "Код округа. Три цифры, ноль впереди будет подставлен автоматически"
+      - name: "LATITUDE"
+        type: "string"
+        required: true
+        regex: '^-?[0-9]+\.[0-9]+$'
+        description: "Широта"
+      - name: "LONGITUDE"
+        type: "string"
+        required: true
+        regex: '^-?[0-9]+\.[0-9]+$'
+        description: "Долгота"
+
+      - name: "IS_24H"
+        type: "int"
+        required: true
+        description: "Признак круглосуточного режима"
+      - name: "IS_TRADING"
+        type: "int"
+        required: true
+        description: "Осуществление отпуска ЛП"
+      - name: "IS_ACTUAL"
+        type: "int"
+        required: true
+        description: "Актуальность"
+      - name: "TYPE_ID"
+        type: "int"
+        required: true
+        description: "Тип аптеки"
+      - name: "CONTACT_PERSON"
+        type: "string"
+        required: true
+        description: "ФИО ответственного"
+      - name: "CONTACT_MOBILE"
+        type: "string"
+        required: true
+        regex: '[0-9]{10,15}$'
+        description: "Телефон ответственного. Только цифры, плюс будет подставлен автоматически"
+      - name: "CONTACT_EMAIL"
+        type: "string"
+        required: true
+        description: "Эл. почта ответственного"
+      - name: "OGRN"
+        type: "bigint"
+        required: true
+        regex: '^\+[0-9]+$'
+        description: "ОГРН "
+      - name: "IS_NOSOLOGY"
+        type: "int"
+        required: true
+        description: "Нозология"
+
+      - name: "INN"
+        type: "int"
+        required: true
+        regex: '^[0-9]{10}$|^[0-9]{12}$'
+        description: "ИНН"
+      - name: "OKPO"
+        type: "int"
+        required: true
+        regex: '^[0-9]{8}$|^[0-9]{10}$'
+        description: "ОКПО"
+
+      - name: "TRADE_DISTRICT"
+        type: "int"
+        required: true
+        description: "TRADE_DISTRICT"
+
+      - name: "UNOM"
+        type: "int"
+        required: true
+        description: "UNOM"
+
+      - name: "COMMENT_"
+        type: "string"
+        required: true
+        description: "COMMENT_"
 
 
 
