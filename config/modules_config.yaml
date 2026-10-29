@@ -313,5 +313,40 @@ modules:
         required: true
         description: "COMMENT_"
 
+  - id: "order_cancel"
+    name: "Отмена заказов"
+    description: "Генерация скриптов для отмены заказов"
+    template: "order_cancel.sql.j2"
+    output_filename: "Отмена_заказов_{timestamp}.sql"
+    fields:
+      - name: "order_id"
+        type: "integer"
+        required: true
+        description: "ID Заказа"
+      - name: "ident"
+        type: "string"
+        required: true
+        description: "Ident Заказа"        
 
-
+  - id: "patient_indicator"
+    name: "Импорт patient_indicator"
+    description: "Генерация INSERT скриптов для добавления новых patient_indicator"
+    template: "patient_indicator.sql.j2"
+    output_filename: "insert_patient_indicator_{timestamp}.sql"
+    fields:
+      - name: "email"
+        type: "string"
+        required: true
+        regex: "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$"
+        description: "Электронная почта"
+      - name: "age"
+        type: "integer"
+        required: false
+        min: 18
+        max: 100
+        description: "Возраст"
+      - name: "registration_date"
+        type: "date"
+        format: "%Y-%m-%d"
+        required: true
+        description: "Дата регистрации"
